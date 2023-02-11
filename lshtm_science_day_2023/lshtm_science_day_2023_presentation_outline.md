@@ -20,7 +20,7 @@ Aims to:
 - Pillar 2 (real-time analysis):
   - Existing tools: EpiNow2, epinowcast, EpiEstim, epidemia, etc.
 
-### An example: \{*bpmodels*}
+### An example: \{_bpmodels_}
 
 - Originally developed by Seb Funk (LSHTM)
 - Simulates branching processes for answering questions around:
