@@ -2,7 +2,7 @@
 
 ## Introduction
 
-- Rapid analytics to support outbreak response decision-making is enhanced by ready, stable, and reliable software.
+- Analytics to support outbreak response decision-making is facilitated by ready, stable, and reliable software.
 - There's lots of R packages for outbreak analytics but mostly lacking visibility, coherence, and continuity
 - Need for initiatives to champion development of coherent, reproducible, and reliable software for epidemiological modelling, particularly, outbreak response decision-making
   
