@@ -1,15 +1,20 @@
 \documentclass[10pt]{beamer}
 
-\usetheme[progressbar=frametitle]{metropolis}
+\usetheme[subsectionpage=progressbar]{metropolis}
+\setbeamertemplate{section in toc}[sections numbered]
+\setbeamertemplate{subsection in toc}[subsections numbered]
+
 \usepackage{appendixnumberbeamer}
 \newcommand{\tabitem}{~~\llap{\textbullet}~~}
 %\usepackage[scale=2]{ccicons}
 
 \usepackage{pgfplots}
 \usepgfplotslibrary{dateplot}
-
+\usepackage{pdfpages}
 \usepackage{xspace}
 \newcommand{\themename}{\textbf{\textsc{metropolis}}\xspace}
+\usepackage{graphicx}
+
 
 \title{Tooling outbreak response analytics}
 \subtitle{The Epiverse TRACE Initiative}
@@ -18,8 +23,8 @@
 \institute{Epiverse Initiative, London School of Hygiene and Tropical Medicine}
 %\titlegraphic{\vfill\includegraphics[height=1.5cm]{../figures/Epiverse-RGB.png}}
 \titlegraphic{%
-	\includegraphics[width=.20\textwidth]{../figures/Epiverse-RGB.png}\hfill
-	\includegraphics[width=.32\textwidth]{../figures/LSHTM_Logo_Black.png}
+	\includegraphics[width=.26\textwidth]{../figures/Epiverse-Text-Only.png}\hfill
+	\includegraphics[width=.42\textwidth]{../figures/mrcg_lshtm_logos.png}
 }
 
 \makeatletter
@@ -51,18 +56,19 @@
   \tableofcontents[hideallsubsections]
 \end{frame}
 
-\section{Introduction}
+\section{Motivation}
 
 \begin{frame}[fragile]{Epidemic response analytics}
 \begin{itemize}
-\item Previous outbreaks (ebola, measles, COVID-19, etc.) heavily supported by reliable analytics. 
-\item Highlight need for ready tools:
+\item Outbreak response decision-making heavily supported by analytics. 
+\item Rapid analytics facilitated by well-maintained, robust, and integrated software ecosystems. 
+\item Myriad of software:
 \begin{itemize}
-	 \item stable
-	 \item robust and reliable
+	\item \texttt{R} packages/pipelines
+	\item \texttt{Python} libraries/pipelines
 \end{itemize}
-\item Current R package ecosystem requires bridging, interoperability, and coherence.
-\item Hence, the need for champions 
+\item Current R packages lack integration.
+\item Need for champions 
 \end{itemize}
 \end{frame}
 
@@ -74,60 +80,80 @@
 Aims to:
 
 \begin{itemize}
-\item support existing R package development efforts (epiforecasts, WHO's goData, etc)
-\item develop new packages (\texttt{finalsize}, \texttt{epiparameter}, \texttt{episoap}, etc)
+\item support existing R package development efforts (epiforecasts, WHO's goData, etc.)
+\item develop new packages (\texttt{finalsize}, \texttt{epiparameter}, \texttt{episoap}, \texttt{readepi}, etc.)
 \item provide an ecosystem 
 \end{itemize} 
 \end{frame}
 
-\begin{frame}[fragile]{Epiverse TRACE(cont'd)}
-\begin{itemize}
-	\item Epiverse TRACE is organized/managed internally with so-called pillars/themes.
-	\item Pillar 2 (real-time analysis):
-	\item Existing tools: \texttt{EpiNow2}, \texttt{epinowcast}, \texttt{EpiEstim}, \texttt{epidemia}, etc.
-\end{itemize}
-\end{frame}
 
-
-\section{Example: \texttt{bpmodels} R package}
-
-\begin{frame}[fragile]{\texttt{bpmodels}}
+\frame[plain]{
 \begin{figure}
 	\centering
-	\includegraphics[scale=0.45]{../figures/bpmodels_homepage.PNG}
+		\includegraphics[scale=0.45]{../figures/epiverse_team_organogram.pdf}
+\end{figure}
+}
+
+\section{Towards an ecosystem}
+
+\subsection{Incorporating the old and new}
+\begin{frame}[fragile]{A transmissibility pipeline}
+	\begin{figure}
+		\centering
+		\includegraphics[scale=0.35]{../figures/transmissibility_pipeline.png}
+	\end{figure}
+\end{frame}
+
+%\begin{frame}[fragile]{Real-time analysis tools}
+%Existing tools: 
+%\begin{itemize}
+%	\item \texttt{EpiNow2} 
+%	\item \texttt{epinowcast} 
+%	\item \texttt{EpiEstim}
+%	\item \texttt{epidemia}
+%\end{itemize}
+%\end{frame}
+
+\subsection{Supporting existing efforts: \texttt{bpmodels}}
+
+\begin{frame}[fragile]{Analysing transmission chains}
+\begin{figure}
+	\centering
+	\includegraphics[scale=0.35]{../figures/bpmodels_homepage.PNG}
 \end{figure}
 \begin{itemize}
-\item Originally developed by Seb Funk (LSHTM)
-\item Simulates branching processes for answering questions around:
+\item Branching processes simulation model
+\item Useful for analysing:
 \begin{itemize}
-	\item Sizes and lengths of clusters 
-	\item Population-level transmissibility and individual heterogeneities in transmission (superspreading)
+	\item Size and length of transmission chains 
+	\item $\mathcal{R}_0$ \& superspreading coefficient
 \end{itemize}
 \end{itemize}
 \end{frame}
 
 \begin{frame}[fragile]{\texttt{bpmodels} (cont'd)}
-\texttt{bpmodels}:	
 \begin{itemize}
-\item Useful during early phase of an epidemic
-\item Example applications during COVID-19:
+\item Analytic support during early phase of an epidemic
+\item Core functionality:
+\begin{itemize}
+	\item \texttt{chain\_sim()}: simulate transmission chains 
+	\item \texttt{chain\_ll()}: estimate log-likelihood of chains
+\end{itemize}
+\item Recent applications:	
 \begin{itemize}
 	\item Projecting COVID-19 cases in Africa: Pearson et al, 2020.
-	\item R0 and superspreading of COVID-19 in China: Abbott et all, 2020.
+	\item $\mathcal{R}_0$ of COVID-19 in Wuhan, China: Abbott et al, 2020.
 \end{itemize}
 \end{itemize}
 \end{frame}
 
-\subsection{bpmodels: Ways to contribute}
-
 \begin{frame}[fragile]{\texttt{bpmodels}: Ways to contribute}
 \begin{itemize}
-\item Use cases
-\item Vignettes
+\item Use cases \& Vignettes
 \item User experience
 \item Code base
 \item Language translations
-\item Next steps: submission to CRAN, plan for major release, etc
+\item Next steps: submission to CRAN, plan for major release, etc.
 \end{itemize}
 \end{frame}
 
@@ -155,9 +181,14 @@ Aims to:
 \section{Conclusion}
 \begin{frame}[fragile]{Conclusions}
 \begin{itemize}
-	\item Need for stable ecosystem of tools before next outbreak
-	\item Epiverse TRACE seeks to champion this course
-	\item Welcome all forms contributions
+	\item Rapid outbreak response analytics requires a stable and reliable software ecosystem.
+	\item Epiverse TRACE seeks to champion the quest for the R community by:
+	\begin{itemize}
+		\item supporting existing R package initiatives
+		\item developing new R packages to fill gaps
+	\end{itemize}
+\item Several packages in development \& maintenance, including \texttt{bpmodels} briefly presented here.
+\item All contributions are welcome. 
 \end{itemize}
 \end{frame}
 \begin{frame}[fragile]{Contact me}
@@ -166,6 +197,8 @@ Aims to:
 	- Github: jamesmbaazam
 	
 	- Twitter: @james\_azam
+	
+	- Mastodon: @jamesazam
 \end{frame}
 \end{document}
 %{
